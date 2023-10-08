@@ -12,8 +12,9 @@ function App() {
 
       <Routes>
         <Route path="/home" Component={Home} />
-        <Route path="/tripslist" Component={TripsList} />
-        <Route path="/tripdetail" Component={TripDetail} />
+        <Route path="/tripsList/:diff" Component={TripsList} />
+        <Route path="/tripsList" Component={TripsList} />
+        <Route path="/tripDetail/:tripId" Component={TripDetail} />
       </Routes>
     </div>
   );

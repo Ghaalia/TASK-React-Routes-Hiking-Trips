@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import tripsData from "../tripsData";
 import SearchBar from "./SearchBar";
 import TripItem from "./TripItem";
+import { Link, useParams } from "react-router-dom";
 
 function TripsList() {
+  const { diff } = useParams();
   const [query, setQuery] = useState("");
   const trips = tripsData
     .filter((trip) => trip.name.toLowerCase().includes(query.toLowerCase()))
+    .filter((trip) => {
+      if (diff == null) {
+        return true;
+      }
+      return trip.difficulty == diff;
+    })
     .map((trip, index) => <TripItem trip={trip} key={index} />);
   return (
     <section className="page-section portfolio" id="portfolio">
@@ -17,9 +25,17 @@ function TripsList() {
         <br />
         <SearchBar setQuery={setQuery} />
         <center>
-          <button className="btn btn-primary btn-xl">Easy</button>
-          <button className="btn btn-primary btn-xl">Moderate</button>
-          <button className="btn btn-primary btn-xl">Hard</button>
+          <Link to="/tripsList/easy">
+            <button className="btn btn-primary btn-xl">Easy</button>
+          </Link>
+
+          <Link to="/tripsList/moderate">
+            <button className="btn btn-primary btn-xl">Moderate</button>
+          </Link>
+
+          <Link to="/tripsList/hard">
+            <button className="btn btn-primary btn-xl">Hard</button>
+          </Link>
         </center>
         <div className="divider-custom">
           <div className="divider-custom-line"></div>
